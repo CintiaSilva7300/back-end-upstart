@@ -17,6 +17,7 @@ const personRoutes = require('./routes/personRoutes')
 app.use('/person', personRoutes)
 
 const DB_USER = process.env.DB_USER;
+const PORT = process.env.PORT;
 const DB_PASSWORD = encodeURIComponent(process.env.DB_PASSWORD) 
 
 mongoose
@@ -25,7 +26,7 @@ mongoose
     )
     .then(() => {
         console.log('Conectou com sucesso no mongoDb!')
-        app.listen(3002)
+        app.listen(`${PORT}`)
     })
     .catch((error) => console.log(error))    
 

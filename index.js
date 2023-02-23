@@ -19,8 +19,9 @@ app.use (express.json())
 const personRoutes = require('./routes/personRoutes')
 
 app.use('/person', personRoutes)
+
 app.get('/', (req, res) =>{
-    res.send('Hello World!')
+    return res.json('Hello World!')
 })
 
 const DB_USER = process.env.DB_USER;

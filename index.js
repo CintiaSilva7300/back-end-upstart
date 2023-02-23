@@ -13,7 +13,7 @@ app.use (
 app.use (express.json())
 
 //rotas
-const personRoutes = require('./routes/personRoutes')
+const personRoutes = require('./src/routes/personRoutes')
 
 app.use('/person', personRoutes)
 

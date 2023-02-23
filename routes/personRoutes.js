@@ -1,6 +1,9 @@
 const router = require("express").Router();
 const Person = require("../models/person");
 
+var cors = require('cors')
+router.use(cors())
+
 router.post("/", async (req, res) => { //create
   const { name, email, password, age } = req.body;
 

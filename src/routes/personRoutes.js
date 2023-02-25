@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const Person = require("../models/person");
 
-var cors = require('cors')
+const cors = require('cors')
 router.use(cors())
 
 router.post("/", async (req, res) => { //create
@@ -18,17 +18,7 @@ router.post("/", async (req, res) => { //create
     password,
     age,
   };
-
-  try {
-    await Person.create(person);
-    res.status(201).json({ msg: "Cadastrado com sucesso!" });
-  } catch (error) {
-    res.status(500).json({ error: error });
-  }
-});
-
-router.get("/", async (req, res) => {
-  //get
+  router
   try {
     const people = await Person.find();
     res.status(200).json(people);

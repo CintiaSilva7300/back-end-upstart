@@ -11,6 +11,10 @@ router.post("/", async (req, res) => { //create
     res.status(422).json({ error: "Preencha todos os campos!" });
     return;
   }
+  if(email !== email.Person) {
+   res.status(400).json({ error: "O email ja foi cadastrado!" });
+   return;
+  }
 
   const person = {
     name,
@@ -18,10 +22,29 @@ router.post("/", async (req, res) => { //create
     password,
     age,
   };
-  router
+
   try {
-    const people = await Person.find();
-    res.status(200).json(people);
+    await Person.create(person);
+    res.status(201).json({ message: "Usuário criado com sucesso!" });
+
+  } catch (error) {
+    res.status(500).json({ error: error });
+  }
+});
+
+router.get("/", async (req, res) => {//get all
+
+  const id = req.body; //estraindo o dado da requisiçao
+
+  try {
+    const person = await Person.find();
+
+    if (!person) {
+      res.status(422).json({ message: "Usuario não encontrada!" });
+      return;
+    }
+
+    res.status(200).json(person);
   } catch (error) {
     res.status(500).json({ error: error });
   }

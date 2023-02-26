@@ -11,10 +11,6 @@ router.post("/", async (req, res) => { //create
     res.status(422).json({ error: "Preencha todos os campos!" });
     return;
   }
-  if(email !== email.Person) {
-   res.status(400).json({ error: "O email ja foi cadastrado!" });
-   return;
-  }
 
   const person = {
     name,
@@ -81,6 +77,7 @@ router.patch("/:id", async (req, res) => {//update
 
   try {
     const updatedPerson = await Person.updateOne({ _id: id }, person);
+    console.log(updatedPerson)
 
     if (updatedPerson.matchedCount === 0) {
       res.status(422).json({ msg: "Usuario não encontrada!" });

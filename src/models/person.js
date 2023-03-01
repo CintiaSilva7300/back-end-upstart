@@ -5,6 +5,13 @@ const Person = mongoose.model('Person', {
    email:String,
    password:String,
    age:Number,
+
+   dataHoraRegistro:{
+      type: Date,
+      default: Date(),
+  }
+
 })
 
 module.exports = Person;
+

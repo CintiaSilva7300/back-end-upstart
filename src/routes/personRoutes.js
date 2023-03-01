@@ -1,11 +1,12 @@
 const router = require("express").Router();
 const Person = require("../models/person");
+const bcrypt = require("bcrypt");
 
 const cors = require('cors')
 router.use(cors())
 
 router.post("/", async (req, res) => { //create
-  const { name, email, password, age } = req.body;
+  const { name, email, password, age, dataHoraRegistro } = req.body;
 
   if (!name || !email || !password || !age) {
     res.status(422).json({ error: "Preencha todos os campos!" });
@@ -17,6 +18,7 @@ router.post("/", async (req, res) => { //create
     email,
     password,
     age,
+    dataHoraRegistro
   };
 
   try {
@@ -36,7 +38,7 @@ router.get("/", async (req, res) => {//get all
     const person = await Person.find();
 
     if (!person) {
-      res.status(422).json({ message: "Usuario não encontrada!" });
+      res.status(422).json({ message: "Usuario não encontrado!" });
       return;
     }
 
@@ -54,7 +56,7 @@ router.get("/:id", async (req, res) => {//get id
     const person = await Person.findOne({ _id: id });
 
     if (!person) {
-      res.status(422).json({ message: "Usuario não encontrada!" });
+      res.status(422).json({ message: "Usuario não encontrado!" });
       return;
     }
 
@@ -65,14 +67,14 @@ router.get("/:id", async (req, res) => {//get id
 });
 
 router.patch("/:id", async (req, res) => {//update
-  const id = req.params.id;
+
   const { name, email, password, age } = req.body;
 
   const person = {
     name,
     email,
     password,
-    age,
+    age
   };
 
   try {
@@ -102,5 +104,10 @@ router.delete("/:id", async (req, res) => { //delete
     res.status(500).json({ error: error });
   }
 });
+
+//login
+router.post("/login", async (req, res) => {
+  res.status(200).json({ message: "rota login" });
+})
 
 module.exports = router;

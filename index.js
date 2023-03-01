@@ -19,6 +19,7 @@ app.use (express.json())
 const personRoutes = require('./src/routes/personRoutes')
 
 app.use('/person', personRoutes)
+app.get('/privado', (req, res) => res.send('somente quando estiver logado'))
 
 const DB_USER = process.env.DB_USER;
 const PORT = process.env.PORT;
